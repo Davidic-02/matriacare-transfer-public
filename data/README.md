@@ -18,8 +18,8 @@ Place them at `data/raw/kaggle.csv` and `data/raw/mendeley.csv`, then run
 
 The 382 clinical records from the three southwestern Nigerian hospitals
 (FUTH, First Mercy, Tim-Unity) are **not distributed here and cannot be made
-public**. They are available from the corresponding author subject to an
-institutional data-sharing agreement with the contributing hospitals.
+public**. They are available from the corresponding author on reasonable request,
+subject to permission from the contributing hospitals.
 
 The arms of the study that depend on those records therefore cannot be
 reproduced from this repository alone. Everything derived from them that does

@@ -68,8 +68,8 @@ support. The Mendeley and FUTH sources carry no mid-risk category.
 
 This repository contains **no patient data**. The two public datasets must be
 downloaded from their original repositories (see `data/README.md`). The
-Nigerian clinical records are available only under an institutional
-data-sharing agreement with the contributing hospitals.
+Nigerian clinical records are available from the corresponding author on
+reasonable request, subject to permission from the contributing hospitals.
 
 ## Citation
 
