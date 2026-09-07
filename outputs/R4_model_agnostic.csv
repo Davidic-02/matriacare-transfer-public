@@ -1,0 +1,6 @@
+model,internal_auroc,external_auroc,delta_auroc,internal_ece,external_ece
+Logistic regression,0.894,0.891,-0.003,0.037,0.166
+Random forest,0.964,0.847,-0.117,0.021,0.245
+Gradient boosting,0.958,0.881,-0.078,0.019,0.247
+SVM (RBF),0.938,0.845,-0.093,0.025,0.184
+Stacking ensemble,0.964,0.865,-0.1,0.045,0.234

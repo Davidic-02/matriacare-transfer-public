@@ -1,0 +1,8 @@
+tertile,model,n,prevalence,auroc,ci_low,ci_high
+low,model WITH glucose,88,0.068,0.935,0.848,1.0
+low,model WITHOUT glucose,88,0.068,0.876,0.732,0.988
+mid,model WITH glucose,85,0.353,0.775,0.678,0.865
+mid,model WITHOUT glucose,85,0.353,0.691,0.568,0.807
+high,model WITH glucose,87,0.759,0.581,0.43,0.732
+high,model WITHOUT glucose,87,0.759,0.638,0.5,0.773
+"all, excluding bs=6.0 floor",model WITH glucose,258,0.395,0.863,0.819,0.905

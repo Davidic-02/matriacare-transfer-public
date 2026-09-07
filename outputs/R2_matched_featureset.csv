@@ -1,0 +1,4 @@
+analysis,n,prevalence,auroc,ci_low,ci_high,ece
+"A1 external->First Mercy+Tim-Unity, FULL features",260,0.392,0.865,0.822,0.905,0.234
+"A1 external->First Mercy+Tim-Unity, VITALS only",260,0.392,0.734,0.668,0.795,0.249
+"A2 external->FUTH, VITALS only",122,0.869,0.569,0.382,0.753,0.164

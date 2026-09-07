@@ -29,6 +29,7 @@ PYTHONPATH=src python src/harmonize.py             # raw -> harmonised table + a
 PYTHONPATH=src python src/experiment.py            # transfer arms + shift diagnostics
 PYTHONPATH=src python src/figures.py               # Figures 1-4, site breakdown, PSI table
 PYTHONPATH=src python src/table1_flow_fairness.py  # Table 1, flow diagram, fairness analysis
+PYTHONPATH=src python src/revision.py              # peer-review revision analyses (R1-R6)
 ```
 
 Run from the repository root. All randomness is seeded (`SEED = 42` in
@@ -46,6 +47,7 @@ records; see Data availability below.
 | `src/experiment.py` | Transfer arms and distributional-shift diagnostics |
 | `src/figures.py` | ROC, calibration, shift and site figures |
 | `src/table1_flow_fairness.py` | Table 1, participant flow, subgroup fairness |
+| `src/revision.py` | Matched-feature, size-matched, model-agnostic and glucose sensitivity analyses |
 | `outputs/` | Figures, result tables, audit trail, TRIPOD+AI checklist |
 | `data/` | How to obtain the public datasets. No patient data is distributed here. |
 
@@ -61,8 +63,10 @@ support. The Mendeley and FUTH sources carry no mid-risk category.
   before de-duplicating will leak identical rows across the split.
 - The FUTH `Height` column mixes units (range 1.13–7.2) and is excluded from
   the shared schema.
-- Nigerian blood sugar is floored at exactly 6.0 mmol/L, which is more likely
-  a recording threshold than physiology. Confirmation from the sites is pending.
+- Glucose is truncated at a lower bound of 6.0 mmol/L in the Nigerian sources
+  **and in Kaggle/UCI** (no values below 6.00). Mendeley is the only source with a
+  lower tail, reaching 3.0 mmol/L, and it drives most of the glucose PSI of 2.55.
+  This is a shared measurement convention, not a Nigeria-specific recording artefact.
 
 ## Data availability
 
