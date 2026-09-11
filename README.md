@@ -30,6 +30,7 @@ PYTHONPATH=src python src/experiment.py            # transfer arms + shift diagn
 PYTHONPATH=src python src/figures.py               # Figures 1-4, site breakdown, PSI table
 PYTHONPATH=src python src/table1_flow_fairness.py  # Table 1, flow diagram, fairness analysis
 PYTHONPATH=src python src/revision.py              # peer-review revision analyses (R1-R6)
+PYTHONPATH=src python src/revision_ci.py           # calibration intervals and seed stability (R7-R8)
 ```
 
 Run from the repository root. All randomness is seeded (`SEED = 42` in
@@ -48,6 +49,7 @@ records; see Data availability below.
 | `src/figures.py` | ROC, calibration, shift and site figures |
 | `src/table1_flow_fairness.py` | Table 1, participant flow, subgroup fairness |
 | `src/revision.py` | Matched-feature, size-matched, model-agnostic and glucose sensitivity analyses |
+| `src/revision_ci.py` | Bootstrap intervals for calibration error and seed stability |
 | `outputs/` | Figures, result tables, audit trail, TRIPOD+AI checklist |
 | `data/` | How to obtain the public datasets. No patient data is distributed here. |
 
@@ -58,9 +60,11 @@ support. The Mendeley and FUTH sources carry no mid-risk category.
 
 ## Known data issues
 
-- 1,921 of 3,474 records in the two public repositories are exact duplicates.
-  Removed here; counts in `outputs/audit_trail.csv`. Splitting train and test
-  before de-duplicating will leak identical rows across the split.
+- 1,921 of 3,474 records in the two public repositories are identical rows.
+  Several variables take few distinct values, so some may be different patients
+  rather than repeated entries. They are removed either way, because identical
+  rows split across training and test partitions inflate performance. Counts in
+  `outputs/audit_trail.csv`.
 - The FUTH `Height` column mixes units (range 1.13–7.2) and is excluded from
   the shared schema.
 - Glucose is truncated at a lower bound of 6.0 mmol/L in the Nigerian sources

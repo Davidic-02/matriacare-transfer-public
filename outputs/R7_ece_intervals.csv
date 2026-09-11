@@ -1,0 +1,6 @@
+model,internal_ece,int_lo,int_hi,external_ece,ext_lo,ext_hi
+Logistic regression,0.037,0.03,0.057,0.166,0.127,0.211
+Random forest,0.021,0.014,0.037,0.245,0.204,0.291
+Gradient boosting,0.019,0.013,0.037,0.247,0.201,0.292
+SVM (RBF),0.025,0.017,0.041,0.184,0.142,0.233
+Stacking ensemble,0.045,0.035,0.059,0.234,0.19,0.279
