@@ -17,9 +17,11 @@ from three southwestern Nigerian hospitals, in both transfer directions.
 | Nigerian → external (reverse) | 1,524 | 0.843 [0.821–0.862] | 0.120 |
 
 Discrimination degrades modestly under transfer; calibration degrades
-five-fold. A model trained on 260 local records outperforms one trained on
-1,524 external records. In the highest blood-sugar tertile, discrimination
-collapses to 0.581 [0.430–0.732] — invisible in the pooled figure.
+five-fold. A model developed and evaluated within the Nigerian population scores higher than
+models transferred into it, a gap not explained by training size
+(`outputs/R3_size_matched.csv`); whether it reflects site-specific labelling is unresolved. In the highest blood-sugar tertile, discrimination is low (AUROC 0.581
+[0.430–0.732]), which the pooled figure does not show; the subgroup's 76%
+high-risk prevalence may itself depress AUROC.
 
 ## Reproducing
 
