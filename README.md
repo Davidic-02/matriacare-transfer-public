@@ -23,16 +23,27 @@ models transferred into it, a gap not explained by training size
 [0.430–0.732]), which the pooled figure does not show; the subgroup's 76%
 high-risk prevalence may itself depress AUROC.
 
+The two public benchmarks are not interchangeable. Trained on Kaggle/UCI alone
+the model transfers to the Nigerian records with no loss of discrimination
+(0.920 internally, 0.920 externally); trained on Mendeley alone it loses 0.156
+(0.972 to 0.816). Calibration error rises on Nigerian data for both. Kaggle/UCI
+is not the distributionally closer source — the domain discriminator separates it
+from the Nigerian records at 0.988 against Mendeley's 0.984, and Mendeley is the
+closer source on outcome prevalence — so a reported transfer figure is a property
+of the particular development corpus (`outputs/R9`–`R11`).
+
 ## Reproducing
 
 ```bash
 python -m venv venv && ./venv/bin/pip install -r requirements.txt
 PYTHONPATH=src python src/harmonize.py             # raw -> harmonised table + audit trail
 PYTHONPATH=src python src/experiment.py            # transfer arms + shift diagnostics
-PYTHONPATH=src python src/figures.py               # Figures 1-4, site breakdown, PSI table
+PYTHONPATH=src python src/figures.py               # ROC, calibration, shift and site figures; PSI table
 PYTHONPATH=src python src/table1_flow_fairness.py  # Table 1, flow diagram, fairness analysis
 PYTHONPATH=src python src/revision.py              # peer-review revision analyses (R1-R6)
 PYTHONPATH=src python src/revision_ci.py           # calibration intervals and seed stability (R7-R8)
+PYTHONPATH=src python src/revision2.py             # between-source heterogeneity and per-source transfer (R9-R11)
+PYTHONPATH=src python src/figure_overview.py       # methodological overview figure
 ```
 
 Run from the repository root. All randomness is seeded (`SEED = 42` in
@@ -52,6 +63,8 @@ records; see Data availability below.
 | `src/table1_flow_fairness.py` | Table 1, participant flow, subgroup fairness |
 | `src/revision.py` | Matched-feature, size-matched, model-agnostic and glucose sensitivity analyses |
 | `src/revision_ci.py` | Bootstrap intervals for calibration error and seed stability |
+| `src/revision2.py` | Between-source heterogeneity and transfer from each external source alone |
+| `src/figure_overview.py` | Methodological overview figure |
 | `outputs/` | Figures, result tables, audit trail, TRIPOD+AI checklist |
 | `data/` | How to obtain the public datasets. No patient data is distributed here. |
 
@@ -84,8 +97,8 @@ reasonable request, subject to permission from the contributing hospitals.
 ## Citation
 
 Adekoya D., Akinbo R. S. "When Benchmarks Do Not Travel: External Validation
-and Distributional Shift of Maternal Risk Prediction Models in Nigerian
-Clinical Populations." Manuscript under review.
+of Maternal Risk Prediction Models in Nigeria." Manuscript under review,
+Journal of Future Artificial Intelligence and Technologies.
 
 ## License
 
