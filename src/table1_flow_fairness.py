@@ -73,7 +73,22 @@ arrow(0.24, 0.42, 0.24, 0.31)
 arrow(0.70, 0.42, 0.65, 0.31); arrow(0.82, 0.42, 0.87, 0.31)
 ax.set(xlim=(0, 1), ylim=(0.15, 1.0))
 ax.set_title("Participant flow", fontsize=11, pad=4)
-fig.tight_layout(); fig.savefig(OUT + "Figure5_Flow.png"); plt.close(fig)
+MSFIG = {'Figure5_Flow': 'Figure2', 'Figure6_Fairness': 'Figure7'}
+
+import os
+HIRES = os.environ.get("HIRES") == "1"
+HR = "outputs/figures_highres/"
+def save(fig, name):
+    """Write the working PNG, and under HIRES=1 also a 600-dpi PNG and a vector PDF
+    named by the figure's number in the manuscript."""
+    fig.savefig(OUT + name + ".png")
+    if HIRES:
+        os.makedirs(HR, exist_ok=True)
+        n = MSFIG[name]
+        fig.savefig(HR + n + ".png", dpi=600)
+        fig.savefig(HR + n + ".pdf")
+
+fig.tight_layout(); save(fig, "Figure5_Flow"); plt.close(fig)
 
 # -------------------------------------------------------------- Fairness
 ext = df[df.domain == "external"]; loc260 = df[df.source.isin(["first_mercy", "tim_unity"])]
@@ -117,4 +132,4 @@ for ax, (var, sub) in zip(axes, fair.groupby("variable")):
     ax.set(xlabel="AUROC (95% CI)", title={"age_band": "Age band", "bs_tertile": "Blood-sugar tertile",
                                            "site": "Site"}[var], xlim=(0.4, 1.02))
 axes[0].text(0.44, -0.7, "dashed = pooled AUROC 0.865", fontsize=7, color="#e76f51")
-fig.tight_layout(); fig.savefig(OUT + "Figure6_Fairness.png"); plt.close(fig)
+fig.tight_layout(); save(fig, "Figure6_Fairness"); plt.close(fig)

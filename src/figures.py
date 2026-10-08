@@ -46,7 +46,22 @@ for k in ORDER:
 ax.plot([0, 1], [0, 1], "k--", lw=0.8, alpha=.5)
 ax.set(xlabel="1 − Specificity", ylabel="Sensitivity", title="Discrimination across transfer directions")
 ax.legend(fontsize=7, loc="lower right", frameon=False)
-fig.tight_layout(); fig.savefig(FIG + "Figure1_ROC.png"); plt.close(fig)
+MSFIG = {'Figure1_ROC': 'Figure3', 'Figure2_Calibration': 'Figure4', 'Figure3_Shift': 'Figure5', 'Figure4_Sites': 'Figure6'}
+
+import os
+HIRES = os.environ.get("HIRES") == "1"
+HR = "outputs/figures_highres/"
+def save(fig, name):
+    """Write the working PNG, and under HIRES=1 also a 600-dpi PNG and a vector PDF
+    named by the figure's number in the manuscript."""
+    fig.savefig(FIG + name + ".png")
+    if HIRES:
+        os.makedirs(HR, exist_ok=True)
+        n = MSFIG[name]
+        fig.savefig(HR + n + ".png", dpi=600)
+        fig.savefig(HR + n + ".pdf")
+
+fig.tight_layout(); save(fig, "Figure1_ROC"); plt.close(fig)
 
 # Figure 2 - calibration
 fig, (a1, a2) = plt.subplots(1, 2, figsize=(9, 4.2), gridspec_kw={"width_ratios": [1.25, 1]})
@@ -64,7 +79,7 @@ a2.set_yticks(range(len(ks))); a2.set_yticklabels([k.split()[0] for k in ks])
 a2.set(xlabel="Expected calibration error", title="Calibration error by arm")
 for i, k in enumerate(ks):
     a2.text(ece[k] + .004, i, f"{ece[k]:.3f}", va="center", fontsize=8)
-fig.tight_layout(); fig.savefig(FIG + "Figure2_Calibration.png"); plt.close(fig)
+fig.tight_layout(); save(fig, "Figure2_Calibration"); plt.close(fig)
 
 # Figure 3 - distribution shift
 psi_rows = []
@@ -88,7 +103,7 @@ for ax, c in zip(axes[1:], ["bs", "age"]):
     ax.set(xlabel={"bs": "Blood sugar (mmol/L)", "age": "Age (years)"}[c], ylabel="Density",
            title=f"{c} — PSI {psi.set_index('feature').psi[c]:.2f}")
     ax.legend(fontsize=7, frameon=False)
-fig.tight_layout(); fig.savefig(FIG + "Figure3_Shift.png"); plt.close(fig)
+fig.tight_layout(); save(fig, "Figure3_Shift"); plt.close(fig)
 
 # Figure 4 + site table
 rows = []
@@ -113,7 +128,7 @@ ax.errorbar(site.auroc, yy, xerr=[site.auroc - site.ci_low, site.ci_high - site.
 ax.axvline(0.5, ls="--", c="grey", lw=.8)
 ax.set_yticks(yy); ax.set_yticklabels([f"{r.site}\n(n={r.n}, prev={r.prevalence:.2f})" for r in site.itertuples()])
 ax.set(xlabel="AUROC (95% bootstrap CI)", title="External-model performance by Nigerian site", xlim=(0.3, 1.02))
-fig.tight_layout(); fig.savefig(FIG + "Figure4_Sites.png"); plt.close(fig)
+fig.tight_layout(); save(fig, "Figure4_Sites"); plt.close(fig)
 
 print(site.to_string(index=False)); print(); print(psi.to_string(index=False))
 print("\nECE:", {k.split()[0]: round(v, 3) for k, v in ece.items()})

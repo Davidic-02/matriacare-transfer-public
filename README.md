@@ -49,6 +49,10 @@ PYTHONPATH=src python src/figure_overview.py       # methodological overview fig
 Run from the repository root. All randomness is seeded (`SEED = 42` in
 `src/common.py`). Runtime is a few minutes on CPU.
 
+Set `HIRES=1` on the three figure scripts to additionally write 600-dpi PNG and
+vector PDF copies to `outputs/figures_highres/`, named by their figure number in
+the manuscript (`Figure1` ... `Figure7`).
+
 The arms involving Nigerian records cannot be reproduced without those
 records; see Data availability below.
 

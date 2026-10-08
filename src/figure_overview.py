@@ -1,5 +1,5 @@
 """Methodological overview figure (study workflow) - Figure 1."""
-import matplotlib
+import os, matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch, FancyArrowPatch
@@ -92,4 +92,8 @@ box(8, 2, 86, 10, "Sensitivity and robustness analyses",
     fc=SENS, bs=7.0)
 
 fig.savefig("outputs/Figure0_Overview.png", bbox_inches="tight", facecolor="white")
+if os.environ.get("HIRES") == "1":
+    os.makedirs("outputs/figures_highres/", exist_ok=True)
+    fig.savefig("outputs/figures_highres/Figure1.png", dpi=600, bbox_inches="tight", facecolor="white")
+    fig.savefig("outputs/figures_highres/Figure1.pdf", bbox_inches="tight", facecolor="white")
 print("written outputs/Figure0_Overview.png")
